@@ -1,2 +1,6 @@
-# location_history_server
-golang service
+# Location History Service
+
+### Quickstart
+```shell 
+make run
+```

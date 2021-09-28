@@ -9,7 +9,7 @@ func (s *Server) initRoute(app *app.Application) {
 	location := s.httpServer.Group("/location")
 	{
 		location.POST("/:order_id/now", handler.NewLocation(app))
-		location.GET("/:order_id/:max", handler.GetHistoryOfLocation(app))
+		location.GET("/:order_id", handler.GetHistoryOfLocation(app))
 		location.DELETE("/:order_id", handler.DeleteHistory(app))
 	}
 }

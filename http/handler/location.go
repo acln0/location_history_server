@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -42,13 +41,15 @@ func GetHistoryOfLocation(app *app.Application) echo.HandlerFunc {
 			return c.NoContent(http.StatusBadRequest)
 		}
 
-		max, err := strconv.Atoi(c.Param("max"))
-		if err != nil {
-			return c.NoContent(http.StatusBadRequest)
+		var max int
+		var err error
+		maxStr := c.QueryParam("max")
+		if maxStr != "" {
+			max, err = strconv.Atoi(c.QueryParam("max"))
+			if err != nil {
+				return c.NoContent(http.StatusBadRequest)
+			}
 		}
-
-		log.Println(orderID)
-		log.Println(max)
 
 		result.OrderID = orderID
 		result.History = app.Storage.Fetch(orderID, max)
